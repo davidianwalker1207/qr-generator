@@ -8,11 +8,11 @@
     with support for multiple content types (URLs, text, email, phone, SMS, WiFi, vCard, events),
     custom colours, and logo overlays with automatic error correction.
     
-    Created by: David Walker & Claude Sonnet 4.5 (Anthropic)
+    Created by: Your Name & Claude Sonnet 4.5 (Anthropic)
     Repository: https://github.com/davidianwalker1207/qr-generator
     
     Licence: MIT License
-    Copyright (c) 2025 David Walker
+    Copyright (c) 2025 [Your Name]
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -657,8 +657,21 @@
                     const wifiPass = document.getElementById('wifiPassword').value;
                     const wifiSec = document.querySelector('input[name="security"]:checked').value;
                     const wifiHidden = document.getElementById('wifiHidden').checked;
-                    data = `WIFI:T:${wifiSec};S:${wifiSSID};P:${wifiPass};H:${wifiHidden ? 'true' : 'false'};;`;
-                    break;
+                    
+                    // Escape special characters in SSID and password
+                    const escapeWifi = (str) => {
+                        return str.replace(/\\/g, '\\\\')
+                                  .replace(/;/g, '\\;')
+                                  .replace(/,/g, '\\,')
+                                  .replace(/:/g, '\\:')
+                                  .replace(/"/g, '\\"');
+                    };
+                    
+                    const escapedSSID = escapeWifi(wifiSSID);
+                    const escapedPass = wifiSec === 'nopass' ? '' : escapeWifi(wifiPass);
+                    
+                    data = `WIFI:T:${wifiSec};S:${escapedSSID};P:${escapedPass};${wifiHidden ? 'H:true;' : ''};`;
+                    break;      
                 case 'vcard':
                     const vcardFirst = document.getElementById('vcardFirstName').value;
                     const vcardLast = document.getElementById('vcardLastName').value;
