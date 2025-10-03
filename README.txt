@@ -127,5 +127,9 @@ CONTRIBUTING
 Feel free to fork, modify, and submit pull requests. All contributions welcome.
 Visit the repository to get started.
 
+CHANGE LOG
+----------
+2025/03/10 - Fixed wifi code problem
+2025/10/02 - Inital commit (v0.6)
 
 ================================================================================
